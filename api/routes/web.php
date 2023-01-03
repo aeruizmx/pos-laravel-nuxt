@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::apiResource('/api/brands', 'BrandController');
+Route::apiResource('/api/measures', 'MeasureController');
+Route::apiResource('/api/categories', 'CategoryController');
 Route::get('/', function () {
     return view('welcome');
 });
