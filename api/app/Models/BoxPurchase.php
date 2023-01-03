@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Measure extends Model
+class BoxPurchase extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'code',
-        'name',
+        'box_id',
+        'purchase_id',
+        'amount',
         'status',
     ];
 }

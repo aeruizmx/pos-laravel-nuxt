@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Measure extends Model
+class CurrencyImage extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'code',
-        'name',
+        'currency_id',
+        'image_id',
         'status',
     ];
 }

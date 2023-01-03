@@ -9,6 +9,18 @@ class Article extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'barcode',
+        'barcode',
+        'brand_id',
+        'measure_id',
+        'category_id',
+        'buy_price',
+        'sale_price',
+        'minimun_stock',
+        'status'
+    ];
+
     public function brand(){
         return $this->belongsTo(Brand::class);
     }
