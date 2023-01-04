@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return ["categories"];
+        return Category::where('status',1)->get();
     }
 
     /**
@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return $category;
     }
 
     /**

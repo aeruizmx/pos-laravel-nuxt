@@ -10,7 +10,7 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable = [
-        'barcode',
+        'name',
         'barcode',
         'brand_id',
         'measure_id',

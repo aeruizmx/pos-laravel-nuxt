@@ -14,7 +14,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        return Document::where('status',1)->get();
     }
 
     /**
@@ -25,7 +25,11 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $document = new Document();
+        $document->code = $request->code;
+        $document->name = $request->name;
+        $document->save();
+        return $document;
     }
 
     /**
@@ -36,7 +40,7 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        //
+        return $document;
     }
 
     /**

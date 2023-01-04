@@ -14,7 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return ["articles"];
+        return Article::where('status',1)->get();
     }
 
     /**
@@ -25,7 +25,18 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = new Article();
+        $article->name = $request->name;
+        $article->barcode = $request->barcode;
+        $article->brand_id = $request->brand_id;
+        $article->measure_id = $request->measure_id;
+        $article->category_id = $request->category_id;
+        $article->buy_price = $request->buy_price;
+        $article->sale_price = $request->sale_price;
+        $article->minimun_stock = $request->minimun_stock;
+        $article->status = $request->minimun_stock;
+        $article->save();
+        return $article;
     }
 
     /**
@@ -36,7 +47,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return $article;
     }
 
     /**

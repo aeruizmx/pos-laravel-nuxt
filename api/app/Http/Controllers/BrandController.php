@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return ["brands"];
+        return Brand::where('status',1)->get();
     }
 
     /**
@@ -39,7 +39,7 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        //
+        return $brand;
     }
 
     /**

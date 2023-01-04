@@ -14,7 +14,7 @@ class MeasureController extends Controller
      */
     public function index()
     {
-        return ["measure"];
+        return Measure::where('status',1)->get();
     }
 
     /**
@@ -40,7 +40,7 @@ class MeasureController extends Controller
      */
     public function show(Measure $measure)
     {
-        //
+        return $measure;
     }
 
     /**
