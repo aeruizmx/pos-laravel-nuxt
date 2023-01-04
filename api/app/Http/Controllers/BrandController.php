@@ -64,6 +64,8 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->status = 0;
+        $brand->save();
+        return $brand;
     }
 }

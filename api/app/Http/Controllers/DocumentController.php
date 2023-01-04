@@ -66,6 +66,8 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        //
+        $document->status = 0;
+        $document->save();
+        return $document;
     }
 }

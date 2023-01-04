@@ -66,6 +66,8 @@ class MeasureController extends Controller
      */
     public function destroy(Measure $measure)
     {
-        //
+        $measure->status = 0;
+        $measure->save();
+        return $measure;
     }
 }
