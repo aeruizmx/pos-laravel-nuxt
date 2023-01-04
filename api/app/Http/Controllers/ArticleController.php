@@ -14,7 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return Article::where('status',1)->get();
+        return Article::with(['brand','measure','category'])->where('status',1)->get();
     }
 
     /**
@@ -46,6 +46,9 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
+        $article->brand = $article->brand;
+        $article->measure = $article->measure;
+        $article->category = $article->category;
         return $article;
     }
 
