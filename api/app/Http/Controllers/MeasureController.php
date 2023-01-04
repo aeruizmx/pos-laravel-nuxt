@@ -52,7 +52,10 @@ class MeasureController extends Controller
      */
     public function update(Request $request, Measure $measure)
     {
-        //
+        $measure->code = $request->code;
+        $measure->name = $request->name;
+        $measure->save();
+        return $measure;
     }
 
     /**

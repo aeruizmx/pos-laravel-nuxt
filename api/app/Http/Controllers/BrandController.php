@@ -51,7 +51,9 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $brand->name = $request->name;
+        $brand->save();
+        return $brand;
     }
 
     /**

@@ -52,7 +52,10 @@ class DocumentController extends Controller
      */
     public function update(Request $request, Document $document)
     {
-        //
+        $document->code = $request->code;
+        $document->name = $request->name;
+        $document->save();
+        return $document;
     }
 
     /**
