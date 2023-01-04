@@ -25,7 +25,11 @@ class MeasureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $measure = new Measure();
+        $measure->code = $request->code;
+        $measure->name = $request->name;
+        $measure->save();
+        return $measure;
     }
 
     /**
