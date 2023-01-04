@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('/api/brands', 'BrandController');
-Route::apiResource('/api/measures', 'MeasureController');
-Route::apiResource('/api/categories', 'CategoryController');
-Route::apiResource('/api/articles', 'ArticleController');
+Route::group(['prefix'=>'api'], function(){
+    Route::apiResource('/brands', 'BrandController');
+    Route::apiResource('/measures', 'MeasureController');
+    Route::apiResource('/categories', 'CategoryController');
+    Route::apiResource('/articles', 'ArticleController');
+    Route::apiResource('/documents', 'DocumentController');
+});
+
 
 Route::get('/', function () {
     return view('welcome');
