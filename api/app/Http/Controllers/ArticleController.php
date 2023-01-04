@@ -83,7 +83,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->status = 0;
-        $article->save();
-        return $article;
+        return ($article->save());
     }
 }
