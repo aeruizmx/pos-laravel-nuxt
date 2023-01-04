@@ -14,7 +14,7 @@ class BoxController extends Controller
      */
     public function index()
     {
-        //
+        return Box::where('status',1)->get();
     }
 
     /**
@@ -25,7 +25,10 @@ class BoxController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $box = new Box();
+        $box->user_id = $request->user_id;
+        $box->save();
+        return $box;
     }
 
     /**
@@ -36,7 +39,7 @@ class BoxController extends Controller
      */
     public function show(Box $box)
     {
-        //
+        return $box;
     }
 
     /**
@@ -48,7 +51,9 @@ class BoxController extends Controller
      */
     public function update(Request $request, Box $box)
     {
-        //
+        $box->user_id = $request->user_id;
+        $box->save();
+        return $box;
     }
 
     /**
@@ -59,6 +64,8 @@ class BoxController extends Controller
      */
     public function destroy(Box $box)
     {
-        //
+        $box->status = 0;
+        $box->save();
+        return $box;
     }
 }

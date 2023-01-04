@@ -34,7 +34,6 @@ class ArticleController extends Controller
         $article->buy_price = $request->buy_price;
         $article->sale_price = $request->sale_price;
         $article->minimun_stock = $request->minimun_stock;
-        $article->status = $request->minimun_stock;
         $article->save();
         return $article;
     }

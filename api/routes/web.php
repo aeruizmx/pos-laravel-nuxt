@@ -19,6 +19,8 @@ Route::group(['prefix'=>'api'], function(){
     Route::apiResource('/categories', 'CategoryController');
     Route::apiResource('/articles', 'ArticleController');
     Route::apiResource('/documents', 'DocumentController');
+    Route::apiResource('/boxes', 'BoxController');
+    Route::apiResource('/boxmovements', 'BoxController');
 });
 
 
