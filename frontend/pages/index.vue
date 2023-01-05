@@ -4,6 +4,11 @@
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  head(){
+    return {
+      title: 'Index'
+    }
+  }
 }
 </script>
