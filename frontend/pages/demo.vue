@@ -1,7 +1,7 @@
 <template>
   <AdminTemplate>
     <div slot="body">
-      <h3>Holi</h3>
+      <h3>Demo</h3>
     </div>
   </AdminTemplate>
 </template>
@@ -10,10 +10,10 @@
 import AdminTemplate from '~/components/AdminTemplate.vue';
 
 export default {
-    name: "IndexPage",
+    name: "DemoPage",
     head() {
         return {
-            title: "Index",
+            title: "Demo",
         };
         ;
     },
