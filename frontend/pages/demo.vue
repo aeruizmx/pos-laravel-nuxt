@@ -3,7 +3,12 @@
     <JcLoader :load="load"></JcLoader>
   <AdminTemplate>
     <div slot="body">
-      <div class="row"> 
+      <div class="row justify-content-end"> 
+        <div class="col-2 text-right">
+          <button type="button" class="btn btn-dark btn-sm w-100">
+            <i class="fas fa-plus"></i> Agregar
+          </button>
+        </div>
         <div class="col-12">
           <div class="card">
             <div class="card-body">
