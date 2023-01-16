@@ -1,7 +1,28 @@
 <template>
   <AdminTemplate>
     <div slot="body">
-      <p>ip {{ ip }}</p>
+      <div class="row"> 
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr v-for="(m,i) in ip">
+                    <td class="py-0 px-1">{{i+1}}</td>
+                    <td class="py-0 px-1">{{m.name}}</td>
+                    <td class="py-0 px-1"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </AdminTemplate>
 </template>
@@ -19,7 +40,7 @@ export default {
     },
     data(){
       return {
-        ip: {}
+        ip: []
       }
     },  
     methods:{
