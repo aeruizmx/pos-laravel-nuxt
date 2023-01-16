@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <JcLoader :load="load"></JcLoader>
   <AdminTemplate>
     <div slot="body">
       <div class="row"> 
@@ -15,7 +17,16 @@
                   <tr v-for="(m,i) in ip">
                     <td class="py-0 px-1">{{i+1}}</td>
                     <td class="py-0 px-1">{{m.name}}</td>
-                    <td class="py-0 px-1"></td>
+                    <td class="py-0 px-1">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-sm py-1 px-2">
+                          <i class="fas fa-pen"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm py-1 px-2">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -25,6 +36,7 @@
       </div>
     </div>
   </AdminTemplate>
+  </div>
 </template>
 
 <script>
@@ -34,13 +46,14 @@ export default {
     name: "DemoPage",
     head() {
         return {
-            title: "Demo",
+            title: "Demo"
         };
         ;
     },
     data(){
       return {
-        ip: []
+        ip: [],
+        load: true
       }
     },  
     methods:{
@@ -52,6 +65,7 @@ export default {
     mounted(){
       this.$nextTick( async () =>{
         await this.fetchSomething()
+        this.load = false
       })
     }
 };
