@@ -1,7 +1,7 @@
 <template>
   <AdminTemplate>
     <div slot="body">
-      <h3>Demo</h3>
+      <p>ip {{ ip }}</p>
     </div>
   </AdminTemplate>
 </template>
@@ -17,6 +17,21 @@ export default {
         };
         ;
     },
-    components: { AdminTemplate }
+    data(){
+      return {
+        ip: {}
+      }
+    },  
+    methods:{
+      async fetchSomething(){
+        const ip = await this.$axios.$get('http://localhost/api/brands')
+        this.ip = ip
+      }
+    },
+    mounted(){
+      this.$nextTick( async () =>{
+        await this.fetchSomething()
+      })
+    }
 };
 </script>
