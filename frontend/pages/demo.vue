@@ -14,9 +14,9 @@
                   <th></th>
                 </thead>
                 <tbody>
-                  <tr v-for="(m,i) in ip">
-                    <td class="py-0 px-1">{{i+1}}</td>
-                    <td class="py-0 px-1">{{m.name}}</td>
+                  <tr v-for="(element,index) in list">
+                    <td class="py-0 px-1">{{index+1}}</td>
+                    <td class="py-0 px-1">{{element.name}}</td>
                     <td class="py-0 px-1">
                       <div class="btn-group">
                         <button type="button" class="btn btn-info btn-sm py-1 px-2">
@@ -52,20 +52,27 @@ export default {
     },
     data(){
       return {
-        ip: [],
+        list: [],
         load: true
       }
     },  
     methods:{
-      async fetchSomething(){
-        const ip = await this.$api.$get('measures')
-        this.ip = ip
+      async GET_DATA(path){
+        const result = await this.$api.$get(path)
+        return result
       }
     },
     mounted(){
-      this.$nextTick( async () =>{
-        await this.fetchSomething()
-        this.load = false
+      this.$nextTick( async () => {
+        try {
+          await Promise.all([this.GET_DATA('brands')]).then((response) => {
+            this.list = response[0]
+          })
+        } catch (error) {
+          console.log(error)
+        } finally{
+          this.load = false
+        }
       })
     }
 };
