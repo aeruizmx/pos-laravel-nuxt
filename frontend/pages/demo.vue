@@ -24,7 +24,7 @@ export default {
     },  
     methods:{
       async fetchSomething(){
-        const ip = await this.$axios.$get('http://localhost/api/brands')
+        const ip = await this.$api.$get('measures')
         this.ip = ip
       }
     },
