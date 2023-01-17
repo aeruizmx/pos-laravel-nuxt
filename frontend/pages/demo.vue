@@ -27,7 +27,7 @@
                         <button type="button" class="btn btn-info btn-sm py-1 px-2">
                           <i class="fas fa-pen"></i>
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm py-1 px-2">
+                        <button type="button" @click="deleteElement(element.id)" class="btn btn-danger btn-sm py-1 px-2">
                           <i class="fas fa-trash"></i>
                         </button>
                       </div>
@@ -65,6 +65,35 @@ export default {
       async GET_DATA(path){
         const result = await this.$api.$get(path)
         return result
+      },
+      async deleteItem(id){
+        this.load = true
+        try {
+          const result = await this.$api.$delete('brands/'+id)
+          await Promise.all([this.GET_DATA('brands')]).then((response) => {
+            this.list = response[0]
+          })
+        } catch (error) {
+          console.log(error)
+        } finally {
+          this.load = false
+        }
+        
+        return result
+      },
+      deleteElement(id){
+        let self = this
+        this.$swal.fire({
+          title: '¿Deseas eliminar el elemento?',
+          showDenyButton: false,
+          showCancelButton: true,
+          confirmButtonText: 'Eliminar',
+          cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await self.deleteItem(id)
+          }
+        })
       }
     },
     mounted(){
