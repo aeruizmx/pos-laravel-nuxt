@@ -50,6 +50,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    'vue-sweetalert2/nuxt'
+
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
