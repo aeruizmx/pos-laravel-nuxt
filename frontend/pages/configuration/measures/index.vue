@@ -17,6 +17,7 @@
                   <tr>
                     <th>#</th>
                     <th>Nombre</th>
+                    <th>Código</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -24,6 +25,7 @@
                   <tr v-for="(element,index) in list">
                     <td class="py-0 px-1">{{index+1}}</td>
                     <td class="py-0 px-1">{{element.name}}</td>
+                    <td class="py-0 px-1">{{element.code}}</td>
                     <td class="py-0 px-1">
                       <div class="btn-group">
                         <nuxt-link :to="url_edit+element.id" type="button" class="btn btn-info btn-sm py-1 px-2">
@@ -59,11 +61,11 @@ export default {
       return {
         list: [],
         load: true,
-        apiUrl:'brands',
-        module: 'Marcas',
+        apiUrl:'measures',
+        module: 'Medidas',
         page:'Configuración',
-        url_new:'/configuration/brands/new',
-        url_edit:'/configuration/brands/edit/'
+        url_new:'/configuration/measures/new',
+        url_edit:'/configuration/measures/edit/'
       }
     },  
     methods:{
@@ -74,7 +76,7 @@ export default {
       async deleteItem(id){
         this.load = true
         try {
-          const result = await this.$api.$delete(this.apiUrl+'/'+id)
+          const result = await this.$api.$delete(this.apiUrl+"/"+id)
           await Promise.all([this.GET_DATA(this.apiUrl)]).then((response) => {
             this.list = response[0]
           })

@@ -14,9 +14,11 @@
             <div class="card-body">
               <table class="table">
                 <thead>
-                  <th>#</th>
-                  <th>Nombre</th>
-                  <th></th>
+                  <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th></th>
+                  </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(element,index) in list">
@@ -81,8 +83,6 @@ export default {
         } finally {
           this.load = false
         }
-        
-        return result
       },
       deleteElement(id){
         let self = this
