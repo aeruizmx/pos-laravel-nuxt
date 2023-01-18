@@ -32,10 +32,9 @@
 import AdminTemplate from '~/components/AdminTemplate.vue';
 
 export default {
-    name: "NewPage",
     head() {
       return {
-          title: "Nuevo"
+        title: this.module
       };
     },
     data(){

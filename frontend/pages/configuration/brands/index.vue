@@ -48,12 +48,10 @@
 import AdminTemplate from '~/components/AdminTemplate.vue';
 
 export default {
-    name: "DemoPage",
     head() {
-        return {
-            title: "Demo"
-        };
-        ;
+      return {
+        title: this.module
+      };
     },
     data(){
       return {
@@ -62,8 +60,8 @@ export default {
         apiUrl:'brands',
         module: 'Marcas',
         page:'Configuración',
-        url_new:'/brands/new',
-        url_edit:'/brands/'
+        url_new:'/configuration/brands/new',
+        url_edit:'/configuration/brands/edit/'
       }
     },  
     methods:{

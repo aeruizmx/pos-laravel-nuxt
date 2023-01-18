@@ -48,16 +48,16 @@
                 </a>
               </li>
               <li class="breadcrumb-item text-sm">
-                <a class="opacity-5 text-dark" href="javascript:;">Pages</a>
+                <a class="opacity-5 text-dark" href="javascript:void(0);">{{page}}</a>
               </li>
               <li
                 class="breadcrumb-item text-sm text-dark active"
                 aria-current="page"
               >
-                Analytics
+                {{module}}
               </li>
             </ol>
-            <h6 class="font-weight-bolder mb-0">Analytics</h6>
+            <h6 class="font-weight-bolder mb-0">{{module}}</h6>
           </nav>
           <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none">
             <a href="javascript:;" class="nav-link text-body p-0">
@@ -250,3 +250,17 @@
         </div>
       </nav>
 </template>
+<script>
+export default{
+  props:{
+      page: {
+        type: String,
+        default: ''
+      },
+      module:{
+        type: String,
+        default: ''
+      }
+    },
+}
+</script>

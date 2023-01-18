@@ -1,7 +1,7 @@
 <template>
   <div>
     <JcLoader :load="load"></JcLoader>
-  <AdminTemplate>
+  <AdminTemplate :page="page" :module="module">
     <div slot="body">
       <div class="row justify-content-center"> 
         <div class="col-sm-8 col-12">
@@ -44,7 +44,9 @@ export default {
         model: {
           name: ''
         },
-        apiUrl:'brands'
+        apiUrl:'brands',
+        module: 'Marcas',
+        page:'Configuración',
       }
     },  
     methods:{

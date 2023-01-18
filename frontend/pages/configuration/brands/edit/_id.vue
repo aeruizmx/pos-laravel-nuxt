@@ -1,24 +1,23 @@
 <template>
   <div>
-    
-  <AdminTemplate :module="module" :page="page">
+    <JcLoader :load="load"></JcLoader>
+  <AdminTemplate :page="page" :module="module">
     <div slot="body">
       <div class="row justify-content-center"> 
-        
         <div class="col-sm-8 col-12">
           <div class="card">
             <div class="card-header">
-              <h3>Agregar</h3>
+              <h3>Actualizar</h3>
             </div>
             <div class="card-body">
-              <CrudCreate :model="model" :apiUrl="apiUrl">
+              <CrudUpdate :model="model" :apiUrl="apiUrl">
                 <div slot="body" class="row">
                   <div class="form-group col-12">
                     <label for="">Nombre</label>
                     <input v-model="model.name" type="text" name="" class="form-control" id="">
                   </div>
                 </div>
-              </CrudCreate>
+              </CrudUpdate>
             </div>
           </div>
         </div>
@@ -32,14 +31,14 @@
 import AdminTemplate from '~/components/AdminTemplate.vue';
 
 export default {
-    name: "NewPage",
     head() {
       return {
-          title: "Nuevo"
+        title: this.module
       };
     },
     data(){
       return {
+        load: true,
         model: {
           name: ''
         },
@@ -49,12 +48,17 @@ export default {
       }
     },  
     methods:{
-      
+      async GET_DATA(path){
+        const result = await this.$api.$get(path)
+        return result
+      },
     },
     mounted(){
       this.$nextTick( async () => {
         try {
-          
+          await Promise.all([this.GET_DATA(this.apiUrl+'/'+this.$route.params.id)]).then((response) => {
+            this.model = response[0]
+          })
         } catch (error) {
           console.log(error)
         } finally{
