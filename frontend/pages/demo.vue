@@ -58,7 +58,8 @@ export default {
     data(){
       return {
         list: [],
-        load: true
+        load: true,
+        apiUrl:'brands'
       }
     },  
     methods:{
@@ -69,8 +70,8 @@ export default {
       async deleteItem(id){
         this.load = true
         try {
-          const result = await this.$api.$delete('brands/'+id)
-          await Promise.all([this.GET_DATA('brands')]).then((response) => {
+          const result = await this.$api.$delete(this.apiUrl+'/'+id)
+          await Promise.all([this.GET_DATA(this.apiUrl)]).then((response) => {
             this.list = response[0]
           })
         } catch (error) {
@@ -99,7 +100,7 @@ export default {
     mounted(){
       this.$nextTick( async () => {
         try {
-          await Promise.all([this.GET_DATA('brands')]).then((response) => {
+          await Promise.all([this.GET_DATA(this.apiUrl)]).then((response) => {
             this.list = response[0]
           })
         } catch (error) {

@@ -4,7 +4,6 @@
     <div class="row">
       <div class="col-12">
         <slot name="body">
-
         </slot>
       </div>
       <div class="col-12">
@@ -44,9 +43,9 @@ export default {
       async Save(){
         try {
           this.load = true
-          const result = await this.$api.$post(this.apiUrl, this.model)
+          const result = await this.$api.$put(this.apiUrl+'/'+this.model.id, this.model)
           this.$swal.fire({
-              title: 'Guardado!',
+              title: 'Actualizado!',
               showDenyButton: false,
               showCancelButton: false,
               confirmButtonText: 'Ok',
