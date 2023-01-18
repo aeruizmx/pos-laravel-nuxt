@@ -24,9 +24,9 @@
                     <td class="py-0 px-1">{{element.name}}</td>
                     <td class="py-0 px-1">
                       <div class="btn-group">
-                        <button type="button" class="btn btn-info btn-sm py-1 px-2">
+                        <nuxt-link :to="'/edit/'+element.id" type="button" class="btn btn-info btn-sm py-1 px-2">
                           <i class="fas fa-pen"></i>
-                        </button>
+                        </nuxt-link>
                         <button type="button" @click="deleteElement(element.id)" class="btn btn-danger btn-sm py-1 px-2">
                           <i class="fas fa-trash"></i>
                         </button>
