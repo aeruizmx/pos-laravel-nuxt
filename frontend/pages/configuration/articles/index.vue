@@ -17,6 +17,12 @@
                   <tr>
                     <th>#</th>
                     <th>Nombre</th>
+                    <th>Código de barras</th>
+                    <th>Marca</th>
+                    <th>Categoria</th>
+                    <th>Stock mínimo</th>
+                    <th>P. Compra</th>
+                    <th>P. Venta</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -24,6 +30,12 @@
                   <tr v-for="(element,index) in list">
                     <td class="py-0 px-1">{{index+1}}</td>
                     <td class="py-0 px-1">{{element.name}}</td>
+                    <td class="py-0 px-1">{{element.barcode}}</td>
+                    <td class="py-0 px-1">{{element.brand.name}}</td>
+                    <td class="py-0 px-1">{{element.category.name}}</td>
+                    <td class="py-0 px-1">{{element.minimun_stock +' - '+ element.measure.code}}</td>
+                    <td class="py-0 px-1">{{element.buy_price}}</td>
+                    <td class="py-0 px-1">{{element.sale_price}}</td>
                     <td class="py-0 px-1">
                       <div class="btn-group">
                         <nuxt-link :to="url_edit+element.id" type="button" class="btn btn-info btn-sm py-1 px-2">
