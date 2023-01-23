@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventory;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
@@ -14,7 +15,8 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        //
+        return Article::with(['brand','measure','category'])->where('status',1)->get();
+        
     }
 
     /**
@@ -23,9 +25,12 @@ class InventoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function kardex(Article $article)
     {
-        //
+        $article->brand = $article->brand;
+        $article->measure = $article->measure;
+        $article->category = $article->category;
+        return $article;
     }
 
     /**

@@ -21,6 +21,8 @@ Route::group(['prefix'=>'api'], function(){
     Route::apiResource('/documents', 'DocumentController');
     Route::apiResource('/boxes', 'BoxController');
     Route::apiResource('/boxmovements', 'BoxController');
+    Route::get('/inventories/kardex/{article}', 'InventoryController@kardex');
+    Route::apiResource('/inventories', 'InventoryController');
 });
 
 
