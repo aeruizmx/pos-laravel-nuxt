@@ -20,9 +20,9 @@ class InventoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function kardex(Article $article)
@@ -31,17 +31,6 @@ class InventoryController extends Controller
         $article->measure = $article->measure;
         $article->category = $article->category;
         return $article;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Inventory  $inventory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Inventory $inventory)
-    {
-        //
     }
 
     /**
