@@ -12,31 +12,16 @@
                     <div class="row">
                       <div class="col-lg-4 col-md-6 col-12">
                         <div class="input-group input-group-lg">
-                          <span
-                            class="input-group-text text-white bg-transparent border-0"
-                          >
-                            <i
-                              class="ni ni-archive-2 text-lg"
-                              aria-hidden="true"
-                            ></i>
+                          <span class="input-group-text text-white bg-transparent border-0">
+                            <i class="ni ni-archive-2 text-lg" aria-hidden="true" ></i>
                           </span>
-                          <input
-                            type="text"
-                            class="form-control bg-transparent border-0 text-white"
-                            placeholder="Buscar..."
-
-                          />
+                          <input type="text" class="form-control bg-transparent border-0 text-white" placeholder="Buscar..."/>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-12 my-auto ms-auto">
                         <div class="input-group input-group-lg">
-                          <span
-                            class="input-group-text text-white bg-transparent border-0"
-                          >
-                            <i
-                              class="ni ni-box-2 text-lg"
-                              aria-hidden="true"
-                            ></i>
+                          <span class="input-group-text text-white bg-transparent border-0">
+                            <i class="ni ni-box-2 text-lg" aria-hidden="true" ></i>
                           </span>
                           <select
                             name=""
@@ -47,7 +32,7 @@
                             <option value="all" class="text-dark">
                               Todas las marcas
                             </option>
-                            <option class="text-dark" >marcas</option>
+                            <option class="text-dark" v-for="brand in brands" :value="brand.name" >{{brand.name}}</option>
                           </select>
                         </div>
                       </div>
@@ -58,25 +43,25 @@
 
               <div class="col-12 py-2" style="min-height: 60vh;max-height: 60vh;overflow-y: scroll;overflow-x: none;">
                 <div class="row">
-
-                  <div class="col-3"  >
+                  
+                  <div class="col-3" v-for="article in articles">
                     <div class="card p-0">
-    <div class="card-header mx-4 mt-2 p-1 text-center">
-      <div
-        class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg"
-      >
-        <i class="fas fa-archive opacity-10" aria-hidden="true"></i>
-      </div>
-    </div>
-    <div class="card-body pt-0 p-1 text-center">
-      <h6 class="text-center mb-0 text-xxs">
-        <i class="fas fa-barcode"></i> 000
-      </h6>
-      <span class="text-xs">name</span>
-      <hr class="horizontal dark my-2" />
-      <h5 class="mb-0 text-sm">0.00</h5>
-    </div>
-  </div>
+                      <div class="card-header mx-4 mt-2 p-1 text-center">
+                        <div
+                          class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg"
+                        >
+                          <i class="fas fa-archive opacity-10" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                      <div class="card-body pt-0 p-1 text-center">
+                        <h6 class="text-center mb-0 text-xxs">
+                          <i class="fas fa-barcode"></i> {{article.barcode}}
+                        </h6>
+                        <span class="text-xs">{{article.name}}</span>
+                        <hr class="horizontal dark my-2" />
+                        <h5 class="mb-0 text-sm">0.00</h5>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -122,12 +107,12 @@
                             >Todo</a
                           >
                         </li>
-                        <li >
+                        <li v-for="category in categories">
                           <a
                             class="dropdown-item border-radius-md"
                             href="javascript:;"
 
-                            >All categ</a
+                            >{{category.name}}</a
                           >
                         </li>
                       </ul>
@@ -386,6 +371,7 @@ export default {
       return result
     },
     async data(path){
+      this.load = true
       try {
           await Promise.all([this.GET_DATA('brands'),this.GET_DATA('categories'),this.GET_DATA('articles')]).then((response) => {
             this.brands = response[0]
@@ -395,6 +381,7 @@ export default {
         } catch (error) {
           console.log(error)
         } finally{
+          this.load = false
         }
     },
   },
