@@ -243,7 +243,7 @@
                             <td class="align-middle text-center text-xxs">
                               <a
                                 href="javascript:void(0);"
-                                @click="DeleteItem(0)"
+                                @click="deleteElement(m.id)"
                                 data-bs-toggle="tooltip"
                                 data-bs-original-title="Delete product"
                               >
@@ -340,19 +340,46 @@ export default {
           this.load = false
         }
       },
-      loadKardex(){
+    loadKardex(){
+      this.load = true
+      this.$nextTick(async () => {
+      try {
+        await Promise.all([this.GET_DATA('/inventories/kardex/'+this.$route.params.id)]).then((v) => {
+          this.model = v[0];
+        });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.load = false;
+      }
+    });
+    },
+    async deleteItem(id){
         this.load = true
-        this.$nextTick(async () => {
         try {
-          await Promise.all([this.GET_DATA('/inventories/kardex/'+this.$route.params.id)]).then((v) => {
-            this.model = v[0];
-          });
-        } catch (e) {
-          console.log(e);
+          const result = await this.$api.$delete('inventories'+'/'+id)
+          await Promise.all([this.GET_DATA(this.apiUrl)]).then((response) => {
+            this.loadKardex()
+          })
+        } catch (error) {
+          console.log(error)
         } finally {
-          this.load = false;
+          this.load = false
         }
-      });
+      },
+      deleteElement(id){
+        let self = this
+        this.$swal.fire({
+          title: '¿Deseas eliminar el movimiento?',
+          showDenyButton: false,
+          showCancelButton: true,
+          confirmButtonText: 'Eliminar',
+          cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await self.deleteItem(id)
+          }
+        })
       }
   },
   mounted() {
