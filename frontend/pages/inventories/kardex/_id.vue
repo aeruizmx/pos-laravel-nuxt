@@ -58,15 +58,15 @@
                     <div class="d-flex justify-content-between">
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Inversion</h6>
-                        <h5>0</h5>
+                        <h5>{{Number(model.investment).toFixed(2)}}</h5>
                       </div>
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Valorizado</h6>
-                        <h5>0</h5>
+                        <h5>{{Number(model.valued).toFixed(2)}}</h5>
                       </div>
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Ganancia</h6>
-                        <h5>0</h5>
+                        <h5>{{Number(model.revenue).toFixed(2)}}</h5>
                       </div>
                     </div>
                     <div class="row mt-4">
@@ -163,7 +163,7 @@
                                         type="text"
                                         placeholder=""
                                         class="form-control"
-                                        v-model="model.motive"
+                                        v-model="inventory.motive"
                                       />
                                     </div>
                                   </div>
@@ -224,22 +224,22 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          <tr v-for="m in model.inventories">
                             <td>
                               <div class="d-flex px-1 py-1">
-                                <div class="text-xxs">--</div>
+                                <div class="text-xxs">{{m.motive}}</div>
                                 <div
                                   class="d-flex flex-column justify-content-center"
                                 >
-                                  <h6 class="mb-0 text-xxs">, -</h6>
+                                  <!-- <h6 class="mb-0 text-xxs">, {{m.amount}}</h6> -->
                                 </div>
                               </div>
                             </td>
                             <td>
-                              <h6><span class="badge text-xxs">--</span></h6>
+                              <h6><span :class="['badge','text-xxs',(m.type==2)?'badge-danger':'badge-success']">{{m.amount}} {{model.measure.code}}</span></h6>
                             </td>
-                            <td class="text-xxs">0</td>
-                            <td class="align-middle text-sm text-xxs">0</td>
+                            <td class="text-xxs">{{Number(m.buy).toFixed(2)}}</td>
+                            <td class="align-middle text-sm text-xxs">{{Number(m.sale).toFixed(2)}}</td>
                             <td class="align-middle text-center text-xxs">
                               <a
                                 href="javascript:void(0);"
@@ -292,7 +292,18 @@ export default {
           sale_price:0,
           brand_id:'',
           measure_id:'',
-          category_id:''
+          category_id:'',
+          brand:{
+            name:''
+          },
+          measure:{
+            code:0,
+            name:''
+          },
+          category:{
+            name:''
+          },
+          inventories:[]
         },
         inventory:{
           amount:1,

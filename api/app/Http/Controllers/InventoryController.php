@@ -34,6 +34,9 @@ class InventoryController extends Controller
         $article->ins = $article->inventories->where('type',1)->sum('amount');
         $article->outs = $article->inventories->where('type',2)->sum('amount');
         $article->stock = $article->ins - $article->outs;
+        $article->valued = $article->stock * $article->sale_price;
+        $article->investment = $article->stock * $article->buy_price;
+        $article->revenue = $article->valued - $article->investment;
         return $article;
     }
 
