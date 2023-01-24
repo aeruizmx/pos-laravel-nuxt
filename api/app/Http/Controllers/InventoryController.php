@@ -30,6 +30,10 @@ class InventoryController extends Controller
         $article->brand = $article->brand;
         $article->measure = $article->measure;
         $article->category = $article->category;
+        $article->inventories = $article->inventories()->where('status',1)->get();
+        $article->ins = $article->inventories->where('type',1)->sum('amount');
+        $article->outs = $article->inventories->where('type',2)->sum('amount');
+        $article->stock = $article->ins - $article->outs;
         return $article;
     }
 

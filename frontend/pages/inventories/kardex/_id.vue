@@ -47,11 +47,11 @@
                       </div>
                       <div class="mx-1">
                         <h6 class="mb-0 mt-3">Ganancia Unitaria</h6>
-                        <h5>0</h5>
+                        <h5>{{Number(model.sale_price - model.buy_price).toFixed(2)}}</h5>
                       </div>
                     </div>
-                    <span class="badge"
-                      ><i class="fas fa-archive" aria-hidden="true"></i> 0 en
+                    <span :class="['badge',(model.stock<model.minimun_stock)?'badge-danger':'badge-success']"
+                      ><i class="fas fa-archive" aria-hidden="true"></i> {{ model.stock }} en
                       Stock</span
                     >
                     <br />
@@ -306,44 +306,13 @@ export default {
       const res = await this.$api.$get(path);
       return res;
     },
-    async EliminarItem(id) {
-      this.load = true;
-      try {
-        const res = await this.$api.$delete(this.apiUrl + "/" + id);
-        console.log(res);
-        await Promise.all([this.GET_DATA(this.apiUrl)]).then((v) => {
-          this.list = v[0];
-        });
-      } catch (e) {
-        console.log(e);
-      } finally {
-        this.load = false;
-      }
-    },
-    Eliminar(id) {
-      let self = this;
-      this.$swal
-        .fire({
-          title: "Deseas Eliminar?",
-          showDenyButton: false,
-          showCancelButton: true,
-          confirmButtonText: "Eliminar",
-          cancelarButtonText: `Cancelar`,
-        })
-        .then(async (result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            await self.EliminarItem(id);
-          }
-        });
-    },
     async Save(){
         try {
           this.load = true
           this.inventory.article_id = this.model.id
           this.inventory.buy_price = this.model.buy_price
           this.inventory.sale_price = this.model.sale_price
-          const result = await this.$api.$post('inventories', this.inventory)
+          const response = await this.$api.$post('inventories', this.inventory)
           this.$swal.fire({
               title: 'Guardado!',
               showDenyButton: false,
@@ -351,7 +320,7 @@ export default {
               confirmButtonText: 'Ok',
             }).then((result) => {
               if (result.isConfirmed) {
-                
+                this.loadKardex()
               }
             })
         } catch (error) {
@@ -359,20 +328,24 @@ export default {
         } finally {
           this.load = false
         }
+      },
+      loadKardex(){
+        this.load = true
+        this.$nextTick(async () => {
+        try {
+          await Promise.all([this.GET_DATA('/inventories/kardex/'+this.$route.params.id)]).then((v) => {
+            this.model = v[0];
+          });
+        } catch (e) {
+          console.log(e);
+        } finally {
+          this.load = false;
+        }
+      });
       }
   },
   mounted() {
-    this.$nextTick(async () => {
-      try {
-        await Promise.all([this.GET_DATA('/inventories/kardex/'+this.$route.params.id)]).then((v) => {
-          this.model = v[0];
-        });
-      } catch (e) {
-        console.log(e);
-      } finally {
-        this.load = false;
-      }
-    });
+    this.loadKardex()
   },
 };
 </script>

@@ -17,4 +17,8 @@ class Inventory extends Model
         'type',
         'status',
     ];
+
+    public function article(){
+        return $this->belongsTo(Article::class);
+    }
 }
