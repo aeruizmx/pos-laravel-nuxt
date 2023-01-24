@@ -370,20 +370,38 @@ export default {
     return {
       modulo: "Nueva compra",
       page: "Compras",
-      load: false,
+      load: true,
       modalEdit: false,
-
+      articles:[],
+      brands:[],
+      categories:[]
     };
   },
   computed:{
 
   },
   methods: {
+    async GET_DATA(path){
+      const result = await this.$api.$get(path)
+      return result
+    },
+    async data(path){
+      try {
+          await Promise.all([this.GET_DATA('brands'),this.GET_DATA('categories'),this.GET_DATA('articles')]).then((response) => {
+            this.brands = response[0]
+            this.categories = response[1]
+            this.articles = response[2]
+          })
+        } catch (error) {
+          console.log(error)
+        } finally{
+        }
+    },
   },
   mounted() {
 
     this.$nextTick(async () => {
-
+      this.data()
     });
   },
 };
