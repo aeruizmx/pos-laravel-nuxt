@@ -34,6 +34,25 @@ class InventoryController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $inventory = new Inventory();
+        $inventory->motive = $request->motive;
+        $inventory->article_id = $request->article_id;
+        $inventory->buy = $request->buy_price;
+        $inventory->sale = $request->sale_price;
+        $inventory->amount = $request->amount;
+        $inventory->type = $request->type;
+        $inventory->save();
+        return $inventory;
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

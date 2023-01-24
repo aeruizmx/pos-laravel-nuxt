@@ -116,6 +116,7 @@
                                         type="text"
                                         placeholder=""
                                         class="form-control"
+                                        v-model="inventory.amount"
                                       />
                                     </div>
                                   </div>
@@ -126,6 +127,7 @@
                                         name=""
                                         id=""
                                         class="form-control"
+                                        v-model="inventory.type"
                                       >
                                         <option value="1">ENTRADA</option>
                                         <option value="2">SALIDA</option>
@@ -139,6 +141,7 @@
                                         type="text"
                                         placeholder=""
                                         class="form-control"
+                                        v-model="model.buy_price"
                                       />
                                     </div>
                                   </div>
@@ -149,6 +152,7 @@
                                         type="text"
                                         placeholder=""
                                         class="form-control"
+                                        v-model="model.sale_price"
                                       />
                                     </div>
                                   </div>
@@ -159,6 +163,7 @@
                                         type="text"
                                         placeholder=""
                                         class="form-control"
+                                        v-model="model.motive"
                                       />
                                     </div>
                                   </div>
@@ -254,7 +259,7 @@
                     </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -289,6 +294,11 @@ export default {
           measure_id:'',
           category_id:''
         },
+        inventory:{
+          amount:1,
+          type:1,
+          motive:''
+        }
     };
   },
   methods: {
@@ -327,6 +337,29 @@ export default {
           }
         });
     },
+    async Save(){
+        try {
+          this.load = true
+          this.inventory.article_id = this.model.id
+          this.inventory.buy_price = this.model.buy_price
+          this.inventory.sale_price = this.model.sale_price
+          const result = await this.$api.$post('inventories', this.inventory)
+          this.$swal.fire({
+              title: 'Guardado!',
+              showDenyButton: false,
+              showCancelButton: false,
+              confirmButtonText: 'Ok',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                
+              }
+            })
+        } catch (error) {
+          console.log(error)
+        } finally {
+          this.load = false
+        }
+      }
   },
   mounted() {
     this.$nextTick(async () => {
