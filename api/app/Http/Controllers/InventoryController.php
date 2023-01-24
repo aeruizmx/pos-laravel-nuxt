@@ -15,8 +15,12 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        return Article::with(['brand','measure','category'])->where('status',1)->get();
-        
+        $articles = Article::where('status',1)->get();
+        $list = [];
+        foreach ($articles as $article) {
+            $list[] = $this->kardex($article);
+        }
+        return $list;
     }
 
     /**

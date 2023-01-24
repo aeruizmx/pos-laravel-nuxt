@@ -10,15 +10,16 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Código de barras</th>
-                    <th>Marca</th>
-                    <th>Categoria</th>
-                    <th>Stock mínimo</th>
-                    <th>P. Compra</th>
-                    <th>P. Venta</th>
-                    <th></th>
+                    <th class="py-0 px-1">#</th>
+                    <th class="py-0 px-1">Nombre</th>
+                    <th class="py-0 px-1">Código de barras</th>
+                    <th class="py-0 px-1">Marca</th>
+                    <th class="py-0 px-1">Categoria</th>
+                    <th class="py-0 px-1">Stock</th>
+                    <th class="py-0 px-1">Inversión</th>
+                    <th class="py-0 px-1">Valorizado</th>
+                    <th class="py-0 px-1">Ganancia</th>
+                    <th class="py-0 px-1"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -28,9 +29,12 @@
                     <td class="py-0 px-1">{{element.barcode}}</td>
                     <td class="py-0 px-1">{{element.brand.name}}</td>
                     <td class="py-0 px-1">{{element.category.name}}</td>
-                    <td class="py-0 px-1">{{element.minimun_stock +' - '+ element.measure.code}}</td>
-                    <td class="py-0 px-1">{{element.buy_price}}</td>
-                    <td class="py-0 px-1">{{element.sale_price}}</td>
+                    <td class="py-0 px-1">
+                      <span :class="['badge','text-xxs',(element.stock < element.minimun_stock)?'badge-danger':'badge-success']">{{element.stock}} {{element.measure.code}}</span>
+                    </td>
+                    <td class="py-0 px-1">{{Number(element.investment).toFixed(2)}}</td>
+                    <td class="py-0 px-1">{{Number(element.valued).toFixed(2)}}</td>
+                    <td class="py-0 px-1">{{Number(element.revenue).toFixed(2)}}</td>
                     <td class="py-0 px-1">
                       <div class="btn-group">
                         <nuxt-link :to="url_edit+element.id" type="button" class="btn btn-info btn-sm py-1 px-2">
