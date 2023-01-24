@@ -15,7 +15,7 @@
                           <span class="input-group-text text-white bg-transparent border-0">
                             <i class="ni ni-archive-2 text-lg" aria-hidden="true" ></i>
                           </span>
-                          <input type="text" class="form-control bg-transparent border-0 text-white" placeholder="Buscar..."/>
+                          <input type="text" class="form-control bg-transparent border-0 text-white" placeholder="Buscar..." v-model="article_to_search"/>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-12 my-auto ms-auto">
@@ -27,12 +27,12 @@
                             name=""
                             id=""
                             class="form-control bg-transparent border-0 text-white"
-
+                            v-model="brand_to_search"
                           >
                             <option value="all" class="text-dark">
                               Todas las marcas
                             </option>
-                            <option class="text-dark" v-for="brand in brands" :value="brand.name" >{{brand.name}}</option>
+                            <option class="text-dark" v-for="brand in brands" :value="brand.id" >{{brand.name}}</option>
                           </select>
                         </div>
                       </div>
@@ -44,24 +44,8 @@
               <div class="col-12 py-2" style="min-height: 60vh;max-height: 60vh;overflow-y: scroll;overflow-x: none;">
                 <div class="row">
                   
-                  <div class="col-3" v-for="article in articles">
-                    <div class="card p-0">
-                      <div class="card-header mx-4 mt-2 p-1 text-center">
-                        <div
-                          class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg"
-                        >
-                          <i class="fas fa-archive opacity-10" aria-hidden="true"></i>
-                        </div>
-                      </div>
-                      <div class="card-body pt-0 p-1 text-center">
-                        <h6 class="text-center mb-0 text-xxs">
-                          <i class="fas fa-barcode"></i> {{article.barcode}}
-                        </h6>
-                        <span class="text-xs">{{article.name}}</span>
-                        <hr class="horizontal dark my-2" />
-                        <h5 class="mb-0 text-sm">0.00</h5>
-                      </div>
-                    </div>
+                  <div class="col-3" v-for="article in articlesCategory">
+                    <PosArticle :article="article" />
                   </div>
                 </div>
               </div>
@@ -103,7 +87,7 @@
                           <a
                             class="dropdown-item border-radius-md"
                             href="javascript:;"
-
+                            @click="category_to_search='all'"
                             >Todo</a
                           >
                         </li>
@@ -111,7 +95,7 @@
                           <a
                             class="dropdown-item border-radius-md"
                             href="javascript:;"
-
+                            @click="category_to_search=category.id"
                             >{{category.name}}</a
                           >
                         </li>
@@ -359,11 +343,41 @@ export default {
       modalEdit: false,
       articles:[],
       brands:[],
-      categories:[]
+      categories:[],
+      article_to_search:'',
+      brand_to_search:'all',
+      category_to_search:'all'
     };
   },
   computed:{
-
+    articlesFiltered(){
+      let search = this.article_to_search.toLowerCase()
+      if(search != ''){
+        return this.articles.filter( element => {
+          let name = element.name != null?element.name:''
+          return name.toLowerCase().indexOf(search) != -1
+        })
+      }
+      return this.articles
+    },
+    articlesBrand(){
+      let search = this.brand_to_search
+      if(search != 'all'){
+        return this.articlesFiltered.filter( element => {
+          return element.brand_id == search
+        })
+      }
+      return this.articlesFiltered
+    },
+    articlesCategory(){
+      let search = this.category_to_search
+      if(search != 'all'){
+        return this.articlesBrand.filter( element => {
+          return element.category_id == search
+        })
+      }
+      return this.articlesBrand
+    }
   },
   methods: {
     async GET_DATA(path){
